@@ -37,7 +37,7 @@
         <h1>Emilie Forteroche</h1>
         <?php
         // Si on est connecté on affiche le mode admin
-        if (isset($_SESSION['user'])) {
+        if ($_SESSION['roleUser'] === 'admin') {
             echo '<h2>Mode Administrateur</h2>';
         }
         ?>

@@ -80,9 +80,14 @@ class AdminController
         // On connecte l'utilisateur.
         $_SESSION['user'] = $user;
         $_SESSION['idUser'] = $user->getId();
+        $_SESSION['roleUser'] = $user->getRole();
 
-        // On redirige vers la page d'administration.
-        Utils::redirect("admin");
+        // On redirige vers la page d'administration si tu as un role d'admin.
+        if ($_SESSION['roleUser'] === 'admin') {
+            Utils::redirect("admin");
+        } else {
+            Utils::redirect("home");
+        }
     }
 
     /**
