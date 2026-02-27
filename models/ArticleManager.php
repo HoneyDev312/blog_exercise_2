@@ -114,4 +114,33 @@ class ArticleManager extends AbstractEntityManager
         }
         return $articles;
     }
+
+    /**
+     * Tri les articles en fonction de l'id, du nombre de vue, du nombre de commentaire ou de la 
+     * date de publication.
+     * @param array $articles : liste d'article     
+     * @param string $sort : orde de tri.
+     * @return array : un tableau d'objets Article trié.
+     */
+    public function sortArticles(array $articles, string $sort): array
+    {
+        usort($articles, function ($a, $b) use ($sort) {
+            return match ($sort) {
+                'id_desc' => $b->getId() <=> $a->getId(),
+                'id_asc' => $a->getId() <=> $b->getId(),
+                'views_desc' => $b->getViewCount() <=> $a->getViewCount(),
+                'views_asc' => $a->getViewCount() <=> $b->getViewCount(),
+
+                'comments_desc' => $b->getCommentCount() <=> $a->getCommentCount(),
+                'comments_asc' => $a->getCommentCount() <=> $b->getCommentCount(),
+
+                'date_desc' => $b->getDateCreation()->getTimestamp() <=> $a->getDateCreation()->getTimestamp(),
+                'date_asc' => $a->getDateCreation()->getTimestamp() <=> $b->getDateCreation()->getTimestamp(),
+
+                default => 0,
+            };
+        });
+
+        return $articles;
+    }
 }

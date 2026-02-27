@@ -195,7 +195,10 @@ class AdminController
         $articleManager = new ArticleManager();
         $articles = $articleManager->getAllArticlesForMonitoring();
 
+        $sortCommand = (string) Utils::request("sort");
+        $sortedArticles = $articleManager->sortArticles($articles, $sortCommand);
+
         $view = new View("Monitoring");
-        $view->render("showMonitoring", ['articles' => $articles]);
+        $view->render("showMonitoring", ['articles' => $sortedArticles]);
     }
 }

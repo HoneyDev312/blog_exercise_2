@@ -26,10 +26,16 @@
             <a href="index.php?action=apropos">À propos</a>
 
             <?php
-            // Si on est connecté, on affiche le bouton de déconnexion, sinon, on affiche le bouton de connexion : 
-            if (!isset($_SESSION['user'])) {
+            // Si on est connecté, on affiche le bouton de déconnexion, Si on est connecté et admin, on affiche le bouton de déconnexion et Admin, sinon, on affiche le bouton de connexion : 
+            $isLoggedIn = isset($_SESSION['user']);
+            $isAdmin = $isLoggedIn && ($_SESSION['roleUser'] ?? null) === 'admin';
+
+            if (!$isLoggedIn) {
                 echo '<a href="index.php?action=admin">Connexion</a>';
             } else {
+                if ($isAdmin) {
+                    echo '<a href="index.php?action=admin">Admin</a>';
+                }
                 echo '<a href="index.php?action=disconnectUser">Déconnexion</a>';
             }
             ?>
@@ -37,7 +43,7 @@
         <h1>Emilie Forteroche</h1>
         <?php
         // Si on est connecté on affiche le mode admin
-        if ($_SESSION['roleUser'] === 'admin') {
+        if (isset($_SESSION['user']) && $_SESSION['roleUser'] === 'admin') {
             echo '<h2>Mode Administrateur</h2>';
         }
         ?>
