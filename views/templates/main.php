@@ -22,13 +22,6 @@
 <body>
     <header>
         <nav>
-            <?php
-            // Si on est connecté on affiche le mode admin
-            if (isset($_SESSION['user'])) {
-                echo '<h2>Mode Administrateur</h2>';
-            }
-            ?>
-
             <a href="index.php">Articles</a>
             <a href="index.php?action=apropos">À propos</a>
 
@@ -42,6 +35,12 @@
             ?>
         </nav>
         <h1>Emilie Forteroche</h1>
+        <?php
+        // Si on est connecté on affiche le mode admin
+        if (isset($_SESSION['user'])) {
+            echo '<h2>Mode Administrateur</h2>';
+        }
+        ?>
     </header>
 
     <main>

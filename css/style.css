@@ -142,23 +142,21 @@ header {
   width: 100%;
   margin-bottom: 30px;
   background-color: var(--headerPaleColor);
+  position: relative;
 }
 
 header > nav {
   display: flex;
   justify-content: flex-end;
-  position: relative;
   background-color: var(--headerColor);
 }
 
-header > nav > h2 {
+header > h2 {
   width: auto;
-  text-decoration-line: underline overline;
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  right: 20px;
+  top: 96px;
   margin: 0;
-  align-self: center;
   color: var(--titleColor);
 }
 
