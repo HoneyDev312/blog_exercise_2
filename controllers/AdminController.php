@@ -22,9 +22,13 @@ class AdminController
 
         // On affiche la page d'administration.
         $view = new View("Administration");
-        $view->render("admin", [
-            'articles' => $articles
-        ]);
+        if (isset($_SESSION['roleUser']) && $_SESSION['roleUser'] === 'admin') {
+            $view->render("admin", [
+                'articles' => $articles
+            ]);
+        } else {
+            throw new Exception("Vous n'avez pas les droits nécessaire pour accéder à cette page !");
+        }
     }
 
     /**
@@ -98,7 +102,9 @@ class AdminController
     {
         // On déconnecte l'utilisateur.
         unset($_SESSION['user']);
+        unset($_SESSION['roleUser']);
         unset($_SESSION['sort']);
+        unset($_SESSION['dir']);
         // On redirige vers la page d'accueil.
         Utils::redirect("home");
     }
