@@ -376,11 +376,28 @@ a.info {
 .monitoringLine .title {
   font-weight: bold;
   min-width: 200px;
-  width: 550px;
+  width: 500px;
 }
 
 .monitoringLine .content {
-  width: 150px;
+  justify-content: center;
+  text-align: center;
+}
+
+.monitoringLine .view {
+  width: 100px;
+  justify-content: center;
+  text-align: center;
+}
+
+.monitoringLine .comment {
+  width: 180px;
+  justify-content: center;
+  text-align: center;
+}
+
+.monitoringLine .date {
+  width: 220px;
   justify-content: center;
   text-align: center;
 }

@@ -3,39 +3,60 @@
 /** 
  * Affichage de la partie informations par article : liste des articles avec le titre, le nombre de * vues, le nombre de commentaires et la date de publication pour chacun. 
  */
+
+$currentSort = $_SESSION["sort"];
+$currentDir = $_SESSION["dir"];
+
+function nextDir(string $currentSort, string $col, string $currentDir): string
+{
+    return ($currentSort === $col && $currentDir === 'asc') ? 'desc' : 'asc';
+}
+function arrow(string $currentSort, string $col, string $currentDir): string
+{
+    if ($currentSort !== $col) return '↕';
+    return $currentDir === 'asc' ? '↑' : '↓';
+}
+
 ?>
 
 <h2>Monitorer les articles</h2>
-<form method="get" action="index.php">
-    <input type="hidden" name="action" value="showMonitoring">
-
-    <label for="sort">Trier par :</label>
-    <select id="sort" name="sort">
-        <option value="id_desc">Titre (récent → ancien)</option>
-        <option value="id_asc">Titre (ancien → récent)</option>
-        <option value="views_desc">Vues (plus → moins)</option>
-        <option value="views_asc">Vues (moins → plus)</option>
-        <option value="comments_desc">Vues (plus → moins)</option>
-        <option value="comments_asc">Vues (moins → plus)</option>
-        <option value="date_desc">Date (récent → ancien)</option>
-        <option value="date_asc">Date (ancien → récent)</option>
-    </select>
-    <button class="submit" type="submit">Appliquer</button>
-</form>
 <div class="adminMonitoring">
     <div class="monitoringLine">
-        <div class="title">Titre</div>
-        <div class="content">Nombre de vue</div>
-        <div class="content">Nombre de commentaire</div>
-        <div class="content">Date de publication</div>
+        <div class="title">
+            <?php
+            echo '<a href="index.php?action=showMonitoring&sort=id&dir=' . nextDir($sort, 'id', $dir) . '">';
+            echo 'Titre ' . arrow($sort, 'id', $dir);
+            echo '</a>';
+            ?>
+        </div>
+        <div class="content view">
+            <?php
+            echo '<a href="index.php?action=showMonitoring&sort=view&dir=' . nextDir($sort, 'view', $dir) . '">';
+            echo 'Vues ' . arrow($sort, 'view', $dir);
+            echo '</a>';
+            ?>
+        </div>
+        <div class="content comment">
+            <?php
+            echo '<a href="index.php?action=showMonitoring&sort=comment&dir=' . nextDir($sort, 'comment', $dir) . '">';
+            echo 'Commentaires ' . arrow($sort, 'comment', $dir);
+            echo '</a>';
+            ?>
+        </div>
+        <div class="content date">
+            <?php
+            echo '<a href="index.php?action=showMonitoring&sort=date&dir=' . nextDir($sort, 'date', $dir) . '">';
+            echo 'Date de Publication ' . arrow($sort, 'date', $dir);
+            echo '</a>';
+            ?></div>
 
     </div>
     <?php foreach ($articles as $article) { ?>
         <div class="monitoringLine">
             <div class="title"><?= $article->getTitle() ?></div>
-            <div class="content"><?= $article->getViewCount() ?></div>
-            <div class="content"><?= $article->getCommentCount() ?></div>
-            <div class="content"><?= $article->getDateCreation()->format('d/m/Y') ?></div>
+            <div class="content view"><?= $article->getViewCount() ?></div>
+            <div class="content comment"><?= $article->getCommentCount() ?></div>
+            <div class="content date"><?= $article->getDateCreation()->format('d/m/Y') ?></div>
 
         </div>
     <?php } ?>

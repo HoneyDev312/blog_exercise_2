@@ -122,17 +122,17 @@ class ArticleManager extends AbstractEntityManager
      * @param string $sort : orde de tri.
      * @return array : un tableau d'objets Article trié.
      */
-    public function sortArticles(array $articles, string $sort): array
+    public function sortArticles(array $articles, string $sort, string $dir): array
     {
-        usort($articles, function ($a, $b) use ($sort) {
-            return match ($sort) {
+        usort($articles, function ($a, $b) use ($sort, $dir) {
+            return match ($sort . "_" . $dir) {
                 'id_desc' => $b->getId() <=> $a->getId(),
                 'id_asc' => $a->getId() <=> $b->getId(),
-                'views_desc' => $b->getViewCount() <=> $a->getViewCount(),
-                'views_asc' => $a->getViewCount() <=> $b->getViewCount(),
+                'view_desc' => $b->getViewCount() <=> $a->getViewCount(),
+                'view_asc' => $a->getViewCount() <=> $b->getViewCount(),
 
-                'comments_desc' => $b->getCommentCount() <=> $a->getCommentCount(),
-                'comments_asc' => $a->getCommentCount() <=> $b->getCommentCount(),
+                'comment_desc' => $b->getCommentCount() <=> $a->getCommentCount(),
+                'comment_asc' => $a->getCommentCount() <=> $b->getCommentCount(),
 
                 'date_desc' => $b->getDateCreation()->getTimestamp() <=> $a->getDateCreation()->getTimestamp(),
                 'date_asc' => $a->getDateCreation()->getTimestamp() <=> $b->getDateCreation()->getTimestamp(),

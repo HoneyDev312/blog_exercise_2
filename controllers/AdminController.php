@@ -98,7 +98,7 @@ class AdminController
     {
         // On déconnecte l'utilisateur.
         unset($_SESSION['user']);
-
+        unset($_SESSION['sort']);
         // On redirige vers la page d'accueil.
         Utils::redirect("home");
     }
@@ -192,13 +192,33 @@ class AdminController
      */
     public function showMonitoring(): void
     {
+
+        $this->checkIfUserIsConnected();
+
         $articleManager = new ArticleManager();
         $articles = $articleManager->getAllArticlesForMonitoring();
 
         $sortCommand = (string) Utils::request("sort");
-        $sortedArticles = $articleManager->sortArticles($articles, $sortCommand);
+        $dirCommand = (string) Utils::request("dir");
+
+        $allowedSort = ['id', 'view', 'comment', 'date'];
+        $allowedDir = ['asc', 'desc'];
+
+        if (!in_array($sortCommand, $allowedSort, true)) $sortCommand = 'date';
+        if (!in_array($dirCommand, $allowedDir, true)) $dirCommand = 'desc';
+
+        $_SESSION["sort"] = $sortCommand;
+        $_SESSION["dir"] = $dirCommand;
+        $sortedArticles = $articleManager->sortArticles($articles, $sortCommand, $dirCommand);
 
         $view = new View("Monitoring");
-        $view->render("showMonitoring", ['articles' => $sortedArticles]);
+        $view->render(
+            "showMonitoring",
+            [
+                'articles' => $sortedArticles,
+                "sort" => $sortCommand,
+                "dir" => $dirCommand
+            ]
+        );
     }
 }
