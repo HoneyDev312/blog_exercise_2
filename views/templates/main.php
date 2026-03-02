@@ -20,33 +20,39 @@
 </head>
 
 <body>
+    <?php
+    $action = $_GET['action'] ?? 'home';
+    ?>
     <header>
         <nav>
-            <a href="index.php">Articles</a>
-            <a href="index.php?action=apropos">À propos</a>
+            <a href="index.php" class="<?= $action === 'home' ? 'active' : '' ?>">Articles</a>
+            <a href="index.php?action=apropos" class="<?= $action === 'apropos' ? 'active' : '' ?>">À propos</a>
 
             <?php
-            // Si on est connecté, on affiche le bouton de déconnexion, Si on est connecté et admin, on affiche le bouton de déconnexion et Admin, sinon, on affiche le bouton de connexion : 
             $isLoggedIn = isset($_SESSION['user']);
-            $isAdmin = $isLoggedIn && ($_SESSION['roleUser'] ?? null) === 'admin';
+            $isAdmin = $isLoggedIn && (($_SESSION['roleUser'] ?? null) === 'admin');
+            ?>
 
-            if (!$isLoggedIn) {
-                echo '<a href="index.php?action=admin">Connexion</a>';
-            } else {
-                if ($isAdmin) {
-                    echo '<a href="index.php?action=admin">Admin</a>';
-                }
-                echo '<a href="index.php?action=disconnectUser">Déconnexion</a>';
+            <?php if (!$isLoggedIn): ?>
+                <a href="index.php?action=admin" class="<?= $action === 'admin' ? 'active' : '' ?>">Connexion</a>
+            <?php else: ?>
+                <?php if ($isAdmin): ?>
+                    <a href="index.php?action=admin" class="<?= $action === 'admin' ? 'active' : '' ?>">Admin</a>
+                <?php endif; ?>
+                <a href="index.php?action=disconnectUser">Déconnexion</a>
+            <?php endif; ?>
+        </nav>
+        <div>
+            <?php
+            // Si on est connecté on affiche le mode admin
+            if ($isAdmin) {
+                echo '<h2>Mode Administrateur</h2>';
             }
             ?>
-        </nav>
-        <h1>Emilie Forteroche</h1>
-        <?php
-        // Si on est connecté on affiche le mode admin
-        if (isset($_SESSION['user']) && $_SESSION['roleUser'] === 'admin') {
-            echo '<h2>Mode Administrateur</h2>';
-        }
-        ?>
+            <h1>Emilie Forteroche</h1>
+        </div>
+
+
     </header>
 
     <main>
