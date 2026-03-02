@@ -22,36 +22,29 @@ function arrow(string $currentSort, string $col, string $currentDir): string
 <h2>Monitorer les articles</h2>
 <div class="adminMonitoring">
     <div class="monitoringLine">
-
         <div class="title">
-            <?php
-            echo '<a href="index.php?action=showMonitoring&sort=id&dir=' . nextDir($sort, 'id', $dir) . '">';
-            echo 'Titre ' . arrow($sort, 'id', $dir);
-            echo '</a>';
-            ?>
-        </div>
-        <div class="content view">
-            <?php
-            echo '<a href="index.php?action=showMonitoring&sort=view&dir=' . nextDir($sort, 'view', $dir) . '">';
-            echo 'Vues ' . arrow($sort, 'view', $dir);
-            echo '</a>';
-            ?>
-        </div>
-        <div class="content comment">
-            <?php
-            echo '<a href="index.php?action=showMonitoring&sort=comment&dir=' . nextDir($sort, 'comment', $dir) . '">';
-            echo 'Commentaires ' . arrow($sort, 'comment', $dir);
-            echo '</a>';
-            ?>
-        </div>
-        <div class="content date">
-            <?php
-            echo '<a href="index.php?action=showMonitoring&sort=date&dir=' . nextDir($sort, 'date', $dir) . '">';
-            echo 'Date de Publication ' . arrow($sort, 'date', $dir);
-            echo '</a>';
-            ?>
+            <a href="index.php?action=showMonitoring&sort=id&dir=<?= nextDir($sort, 'id', $dir) ?>">
+                Titre <?= arrow($sort, 'id', $dir) ?>
+            </a>
         </div>
 
+        <div class="content view">
+            <a href="index.php?action=showMonitoring&sort=view&dir=<?= nextDir($sort, 'view', $dir) ?>">
+                Vues <?= arrow($sort, 'view', $dir) ?>
+            </a>
+        </div>
+
+        <div class="content comment">
+            <a href="index.php?action=showMonitoring&sort=comment&dir=<?= nextDir($sort, 'comment', $dir) ?>">
+                Commentaires <?= arrow($sort, 'comment', $dir) ?>
+            </a>
+        </div>
+
+        <div class="content date">
+            <a href="index.php?action=showMonitoring&sort=date&dir=<?= nextDir($sort, 'date', $dir) ?>">
+                Date de publication <?= arrow($sort, 'date', $dir) ?>
+            </a>
+        </div>
     </div>
     <?php foreach ($articles as $article) { ?>
         <div class="monitoringLine">
