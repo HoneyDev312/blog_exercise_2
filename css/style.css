@@ -284,6 +284,12 @@ a.info {
 }
 
 /* On redéfinit certaines parties du "info" pour l'affichage dans les commentaires */
+
+.detailComment {
+  position: relative;
+  width: 100%;
+}
+
 .detailComment .info {
   margin: 5px 0 5px 0;
   font-style: normal;
@@ -291,6 +297,13 @@ a.info {
 
 .detailComment .content {
   margin: 5px 0 5px 0;
+}
+
+.detailComment > a {
+  position: absolute;
+  top: 5px;
+  right: 0;
+  cursor: pointer;
 }
 
 /* Page d'erreur */
@@ -338,6 +351,11 @@ a.info {
   font-weight: bold;
   min-width: 200px;
   width: 200px;
+  cursor: pointer;
+}
+
+.articleLine .title :hover {
+  color: var(--commentColor);
 }
 
 .articleLine .content {
@@ -377,6 +395,15 @@ a.info {
   font-weight: bold;
   min-width: 200px;
   width: 500px;
+  cursor: pointer;
+}
+
+.monitoringLine:nth-child(odd) .title :hover {
+  color: var(--commentColor);
+}
+
+.monitoringLine:nth-child(even) .title :hover {
+  color: var(--commentPaleColor);
 }
 
 .monitoringLine .content {

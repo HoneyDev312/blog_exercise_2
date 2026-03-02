@@ -22,6 +22,7 @@ function arrow(string $currentSort, string $col, string $currentDir): string
 <h2>Monitorer les articles</h2>
 <div class="adminMonitoring">
     <div class="monitoringLine">
+
         <div class="title">
             <?php
             echo '<a href="index.php?action=showMonitoring&sort=id&dir=' . nextDir($sort, 'id', $dir) . '">';
@@ -48,12 +49,13 @@ function arrow(string $currentSort, string $col, string $currentDir): string
             echo '<a href="index.php?action=showMonitoring&sort=date&dir=' . nextDir($sort, 'date', $dir) . '">';
             echo 'Date de Publication ' . arrow($sort, 'date', $dir);
             echo '</a>';
-            ?></div>
+            ?>
+        </div>
 
     </div>
     <?php foreach ($articles as $article) { ?>
         <div class="monitoringLine">
-            <div class="title"><?= $article->getTitle() ?></div>
+            <div class="title"><a href="index.php?action=showArticle&id=<?= $article->getId() ?>"><?= $article->getTitle() ?></a></div>
             <div class="content view"><?= $article->getViewCount() ?></div>
             <div class="content comment"><?= $article->getCommentCount() ?></div>
             <div class="content date"><?= $article->getDateCreation()->format('d/m/Y') ?></div>
